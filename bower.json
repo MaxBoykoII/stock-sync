@@ -1,0 +1,12 @@
+{
+  "name": "stock-sync",
+  "description": "Solution to freeCodeCamp's Chart the Stock Market Challenge",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "jQuery": "^2.2.3",
+    "angular-google-chart": "^0.1.0"
+  }
+}

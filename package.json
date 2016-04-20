@@ -1,0 +1,15 @@
+{
+  "name": "stock-sync",
+  "version": "0.0.0",
+  "description": "Solution to freeCodeCamp's Chart the Stock Market Challenge",
+  "main": "server.js",
+  "repository": "",
+  "author": "Max Boyko <maxboykomax@gmail.com>",
+  "dependencies": {
+    "async": "~0.2.8",
+    "body-parser": "^1.15.0",
+    "express": "~3.2.4",
+    "request": "^2.72.0",
+    "socket.io": "~0.9.14"
+  }
+}
