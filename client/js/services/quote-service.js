@@ -21,7 +21,7 @@ angular.module('StockSync')
                 }).join(', '),
                 query = 'select * from yahoo.finance.historicaldata where symbol in (' + selection + ') and startDate = "2009-09-11" and endDate = "2010-03-10"';
 
-            $http.get('/stocks?symbols=' + query).then(function(res) {
+            $http.get('api/stocks?symbols=' + query).then(function(res) {
                 var data = res.data.body.query.results.quote,
                     quotesbySymbol = [];
 
