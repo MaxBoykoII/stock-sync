@@ -1,1 +1,1 @@
-angular.module('StockSync', ['googlechart']);
+angular.module('StockSync', ['googlechart', 'btford.socket-io']);

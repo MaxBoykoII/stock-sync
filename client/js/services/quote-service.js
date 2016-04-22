@@ -1,6 +1,6 @@
 angular.module('StockSync')
     .service('QuoteService', ['$http', '$q', function($http, $q) {
-        var symbols = ["YHOO", "AAPL"];
+        var symbols = [];
 
         //[1] Helper functions for managing tracked symbols;
         this.showSymbols = function() {
