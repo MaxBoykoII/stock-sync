@@ -3,6 +3,6 @@ angular.module('StockSync')
         return {
             restrict: 'E',
             templateUrl: '/templates/add-symbol.html',
-            scope: {}
+            controller: 'SymbolCtrl'
         };
     })

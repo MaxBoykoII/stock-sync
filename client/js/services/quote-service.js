@@ -12,7 +12,7 @@ angular.module('StockSync')
         this.clear = function() {
             symbols = [];
         };
-        //[2] Main processing function for interacting with server api
+        //[2] Main processing functions for interacting with server api
         this.fetch = function() {
             var deferred = $q.defer(),
                 selection = symbols.map(function(el) {
@@ -41,6 +41,17 @@ angular.module('StockSync')
                 }
             }, function() {
                 deferred.reject();
+            });
+            return deferred.promise;
+        };
+        this.search = function(search) {
+            var deferred = $q.defer();
+            $http.get('/api/stocks/' + search).then(function(res) {
+                deferred.resolve({
+                    results: res.data.results
+                }, function() {
+                    deferred.reject();
+                });
             });
             return deferred.promise;
         };
