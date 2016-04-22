@@ -6,6 +6,12 @@ angular.module('StockSync')
             });
             $scope.generate($scope.scalebyStart);
         });
+        stockSocket.on('stock', function(data) {
+
+            QuoteService.register(data.symbol);
+            $scope.generate($scope.scalebyStart);
+
+        });
         $scope.search = {};
         $scope.search.text = "";
         $scope.search.results = [];
@@ -13,11 +19,13 @@ angular.module('StockSync')
             if (QuoteService.showSymbols().indexOf(symbol) === -1) {
                 QuoteService.register(symbol);
                 $scope.generate($scope.scalebyStart);
+                stockSocket.emit('stock', {
+                    symbol: symbol
+                });
             }
         };
         $scope.$watch('search.text', function(newValue) {
             QuoteService.search(newValue).then(function(response) {
-                console.log(response);
                 $scope.search.results = response.results;
             });
         });
