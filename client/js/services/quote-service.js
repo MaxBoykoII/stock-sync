@@ -1,21 +1,23 @@
 angular.module('StockSync')
-    .service('QuoteService', ['$http', '$q', function($http, $q) {
-        var symbols = [];
+    .service('QuoteService', ['$http', '$q', '$rootScope', function($http, $q, $rootScope) {
+        $rootScope.symbols = [];
 
         //[1] Helper functions for managing tracked symbols;
         this.showSymbols = function() {
-            return symbols;
+            return $rootScope.symbols;
         };
         this.register = function(symbol) {
-            symbols.push(symbol);
+            $rootScope.symbols.push(symbol);
         };
-        this.clear = function() {
-            symbols = [];
+        this.remove = function(symbol) {
+           _.remove($rootScope.symbols, function(sym) {
+                return sym === symbol;
+            });
         };
         //[2] Main processing functions for interacting with server api
         this.fetch = function() {
             var deferred = $q.defer(),
-                selection = symbols.map(function(el) {
+                selection = $rootScope.symbols.map(function(el) {
                     el = '"' + el.replace(/"/g, '') + '"';
                     return el;
                 }).join(', '),
@@ -25,9 +27,9 @@ angular.module('StockSync')
                 var data = res.data.body.query.results.quote,
                     quotesbySymbol = [];
 
-                for (var i = 0, l = symbols.length; i < l; i++) {
+                for (var i = 0, l = $rootScope.symbols.length; i < l; i++) {
                     quotesbySymbol.push(data.filter(function(el) {
-                        return el.Symbol === symbols[i];
+                        return el.Symbol === $rootScope.symbols[i];
                     }).map(function(el) {
                         return {
                             "Symbol": el.Symbol,

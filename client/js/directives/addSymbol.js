@@ -5,4 +5,4 @@ angular.module('StockSync')
             templateUrl: '/templates/add-symbol.html',
             controller: 'SymbolCtrl'
         };
-    })
+    });

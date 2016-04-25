@@ -1,4 +1,5 @@
-var symbols = ["YHOO", "AAPL"];
+var symbols = ["YHOO", "AAPL"],
+    _ = require('lodash');
 
 function stockSocket(http) {
     // var server = require('http').Server(app);
@@ -14,7 +15,15 @@ function stockSocket(http) {
             if (symbols.length > 10) {
                 symbols.shift();
             }
-            client.broadcast.emit('stock', {symbol: data.symbol});
+            client.broadcast.emit('stock', {
+                symbol: data.symbol
+            });
+        });
+        client.on('remove', function(data) {
+            _.remove(symbols, function(sym) {
+                return sym === data.symbol;
+            });
+            client.broadcast.emit('remove', data);
         });
     });
 
