@@ -10,7 +10,7 @@ angular.module('StockSync')
             $rootScope.symbols.push(symbol);
         };
         this.remove = function(symbol) {
-           _.remove($rootScope.symbols, function(sym) {
+            _.remove($rootScope.symbols, function(sym) {
                 return sym === symbol;
             });
         };
@@ -25,10 +25,9 @@ angular.module('StockSync')
 
             $http.get('api/stocks?symbols=' + query).then(function(res) {
                 var data = res.data.body.query.results.quote,
-                    quotesbySymbol = [];
-
+                    quotesBySymbol = [];
                 for (var i = 0, l = $rootScope.symbols.length; i < l; i++) {
-                    quotesbySymbol.push(data.filter(function(el) {
+                    quotesBySymbol.push(data.filter(function(el) {
                         return el.Symbol === $rootScope.symbols[i];
                     }).map(function(el) {
                         return {
@@ -37,8 +36,15 @@ angular.module('StockSync')
                             "Date": new Date(el.Date)
                         };
                     }));
+                    quotesBySymbol.forEach(function(el, i, array) {
+                        if (!el.length) {
+                            array.splice(i, 1);
+                            alert('Not data available in this date range for ' + $rootScope.symbols[i] + '!');
+                            $rootScope.symbols.splice(i, 1);
+                        }
+                    });
                     deferred.resolve({
-                        result: quotesbySymbol
+                        result: quotesBySymbol
                     });
                 }
             }, function() {

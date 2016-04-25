@@ -11,6 +11,7 @@ function stockSocket(http) {
             symbols: symbols
         });
         client.on('stock', function(data) {
+            console.log('stock added');
             symbols.push(data.symbol);
             if (symbols.length > 10) {
                 symbols.shift();

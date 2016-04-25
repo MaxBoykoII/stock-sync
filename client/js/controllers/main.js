@@ -1,5 +1,5 @@
 angular.module('StockSync')
-    .controller('MainCtrl', ['$scope', 'QuoteService', function($scope, QuoteService) {
+    .controller('MainCtrl', ['$scope', 'QuoteService', '$q', function($scope, QuoteService, $q) {
         //[1] initialize chart variables
         $scope.chartObject = {};
         $scope.chartObject.options = {
@@ -47,7 +47,6 @@ angular.module('StockSync')
             for (var i = 0, l = scaledData[0].length; i < l; i++) {
                 rows.push(rowCreate(i));
             }
-            console.log(rows);
             $scope.chartObject.data = {
                 "cols": cols,
                 "rows": rows
@@ -74,12 +73,18 @@ angular.module('StockSync')
         };
         //[4] function to generate rows and columns using scaled data
         $scope.generate = function(scalingFunction) {
+            var deferred = $q.defer();
+
             QuoteService.fetch()
                 .then(function(data) {
                     scalingFunction(data.result);
+                    deferred.resolve();
+                }, function() {
+                    deferred.reject();
                 });
+            return deferred.promise;
         };
 
         //[5] initizalize by calling generate with the scalebyStart scaling function
-       // $scope.generate($scope.scalebyStart);
+        // $scope.generate($scope.scalebyStart);
     }]);

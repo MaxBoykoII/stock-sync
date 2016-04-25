@@ -17,7 +17,6 @@ ctrlStocks.getStocks = function(req, res) {
             console.log(err);
         }
         body = JSON.parse(body);
-
         res.json({
             body: body
         });

@@ -16,11 +16,20 @@ angular.module('StockSync')
         $scope.search.text = "";
         $scope.search.results = [];
         $scope.register = function(symbol) {
+            console.log(symbol);
+            var before = QuoteService.showSymbols().length;
+
             if (QuoteService.showSymbols().indexOf(symbol) === -1) {
+                console.log(before);
                 QuoteService.register(symbol);
-                $scope.generate($scope.scalebyStart);
-                stockSocket.emit('stock', {
-                    symbol: symbol
+                $scope.generate($scope.scalebyStart).then(function() {
+                    //don't send symbol to array on server if it was removed from symbols array
+                    //on account of missing data
+                    if (before !== QuoteService.showSymbols().length) {
+                        stockSocket.emit('stock', {
+                            symbol: symbol
+                        });
+                    }
                 });
             }
         };
