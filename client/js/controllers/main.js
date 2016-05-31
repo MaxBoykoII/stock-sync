@@ -1,6 +1,6 @@
 angular.module('StockSync')
     .controller('MainCtrl', ['$scope', 'QuoteService', '$q', function($scope, QuoteService, $q) {
-        //[1] initialize chart variables
+        //[1] Initialize chart variables
         $scope.chartObject = {};
         $scope.chartObject.options = {
             displayAnnotations: false,
@@ -12,7 +12,7 @@ angular.module('StockSync')
         $scope.chartObject.data = {};
         $scope.chartObject.type = "AnnotationChart";
 
-        //[2] helper function for row and column creation
+        //[2] Helper function for row and column creation
         function rowAndColCreate(scaledData) {
             var cols = [{
                 "id": "date",

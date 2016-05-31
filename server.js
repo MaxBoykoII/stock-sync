@@ -1,9 +1,9 @@
 var express = require('express'),
   bodyParser = require('body-parser'),
   app = express(),
-  routesApi = require('./api/routes/index.js'),
+  routesApi = require('./server_side/api/routes/index.js'),
   http = require('http').createServer(app),
-  stockSocket = require('./websocket/socket.js');
+  stockSocket = require('./server_side/websocket/socket.js');
 
 //establish websocket
 stockSocket(http);
@@ -12,10 +12,11 @@ stockSocket(http);
 app.use(bodyParser.json());
 app.use('/api', routesApi);
 
-
+console.log(__dirname);
 //serve static assets and bower components
 app.use(express.static(__dirname + '/client'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
+
 
 
 
