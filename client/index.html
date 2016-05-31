@@ -12,24 +12,7 @@
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
             <a class="navbar-brand" href="#/">stockSync</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
           </div>
         </div>
       </div>
@@ -40,15 +23,14 @@
           <div class="panel-title">
 
           </div>
+          <chart-controls></chart-controls>
         </div>
         <div class="panel-body">
           <div class="row">
-            <div class="col-md-7" ng-if="chartObject.data !== {}">
+            <div class="col-md-12" ng-if="chartObject.data !== {}">
               <div google-chart chart="chartObject" style="height:100%; width:100%"></div>
             </div>
-            <div class="col-md-4 col-md-offset 1">
-              <chart-controls></chart-controls>
-            </div>
+            
           </div>
         </div>
         <div class="panel-footer">

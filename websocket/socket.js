@@ -1,3 +1,4 @@
+//Initialize with symbols for Yahoo and Apple;
 var symbols = ["YHOO", "AAPL"],
     _ = require('lodash');
 
@@ -6,7 +7,6 @@ function stockSocket(http) {
     var io = require('socket.io').listen(http);
 
     io.on('connection', function(client) {
-        console.log('client connected...');
         client.emit('join', {
             symbols: symbols
         });
