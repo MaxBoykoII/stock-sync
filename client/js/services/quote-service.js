@@ -14,7 +14,26 @@ angular.module('StockSync')
                 return sym === symbol;
             });
         };
-        //[2] Main processing functions for interacting with server api
+        //[2] Helper functions for this.fetch, defined here to avoid redefining them in for loop
+        function match(element){
+                        return element.Symbol === $rootScope.symbols[this];
+                    }
+        function format(element){
+                        return {
+                            "Symbol": element.Symbol,
+                            "Close": parseFloat(element.Close),
+                            "Date": new Date(element.Date)
+                        };
+                    }
+        function check(element, i, array){
+                        if (!element.length || element.length !== array[0].length) {
+                            array.splice(i, 1);
+                            alert('Not enough data available in this date range for ' + $rootScope.symbols[i] + '!');
+                            $rootScope.symbols.splice(i, 1);
+                        }
+                    }
+    
+        //[3] Main processing functions for interacting with server api
         this.fetch = function() {
             var deferred = $q.defer(),
                 selection = $rootScope.symbols.map(function(el) {
@@ -27,26 +46,13 @@ angular.module('StockSync')
                 var data = res.data.body.query.results.quote,
                     quotesBySymbol = [];
                 for (var i = 0, l = $rootScope.symbols.length; i < l; i++) {
-                    quotesBySymbol.push(data.filter(function(el) {
-                        return el.Symbol === $rootScope.symbols[i];
-                    }).map(function(el) {
-                        return {
-                            "Symbol": el.Symbol,
-                            "Close": parseFloat(el.Close),
-                            "Date": new Date(el.Date)
-                        };
-                    }));
-                    quotesBySymbol.forEach(function(el, i, array) {
-                        if (!el.length) {
-                            array.splice(i, 1);
-                            alert('Not data available in this date range for ' + $rootScope.symbols[i] + '!');
-                            $rootScope.symbols.splice(i, 1);
-                        }
-                    });
+                    quotesBySymbol.push(data.filter(match, i).map(format));
+                    quotesBySymbol.forEach(check);
+                    console.log(quotesBySymbol);
                     deferred.resolve({
                         result: quotesBySymbol
                     });
-                }
+                } 
             }, function() {
                 deferred.reject();
             });

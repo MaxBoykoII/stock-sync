@@ -84,7 +84,4 @@ angular.module('StockSync')
                 });
             return deferred.promise;
         };
-
-        //[5] initizalize by calling generate with the scalebyStart scaling function
-        // $scope.generate($scope.scalebyStart);
     }]);

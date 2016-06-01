@@ -12,7 +12,7 @@ stockSocket(http);
 app.use(bodyParser.json());
 app.use('/api', routesApi);
 
-console.log(__dirname);
+
 //serve static assets and bower components
 app.use(express.static(__dirname + '/client'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
