@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../development/js/app.js"],"names":[],"mappings":";;AAAA,QAAQ,MAAR,CAAe,WAAf,EAA4B,CAAC,aAAD,EAAgB,kBAAhB,CAA5B","file":"app.js","sourcesContent":["angular.module('StockSync', ['googlechart', 'btford.socket-io']);"]}
