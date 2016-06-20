@@ -11,10 +11,13 @@ angular.module('StockSync').service('QuoteService', ['$http', '$q', '$rootScope'
     };
     $rootScope.symbols = [];
     var now = new Date(),
-        yesterday = new Date(now.getTime() - 24 * 3600 * 1000),
-        year_ago = new Date(yesterday.getTime() - 365 * 24 * 3600 * 1000),
-        startDate = year_ago.yyyymmdd(),
-        endDate = yesterday.yyyymmdd();
+        yesterday = new Date(+now - 24 * 3600 * 1000),
+        year_ago = new Date(+now - 365 * 24 * 3600 * 1000 / 2),
+        startDate = year_ago.yyyymmdd() || "2009-09-11",
+        endDate = yesterday.yyyymmdd() || "2010-03-10";
+    console.log(now);
+    console.log(year_ago.yyyymmdd());
+    console.log(yesterday.yyyymmdd());
 
     //[1] Helper functions for managing tracked symbols;
     this.showSymbols = function () {
@@ -57,7 +60,7 @@ angular.module('StockSync').service('QuoteService', ['$http', '$q', '$rootScope'
             el = '"' + el.replace(/"/g, '') + '"';
             return el;
         }).join(', '),
-            query = 'select * from yahoo.finance.historicaldata where symbol in (' + selection + ') and startDate = "2009-09-11" and endDate = "2010-03-10"';
+            query = 'select * from yahoo.finance.historicaldata where symbol in (' + selection + ') and startDate = "' + startDate + '" and endDate = "' + endDate + '"';
         console.log(query);
         $http.get('api/stocks?symbols=' + query).then(function (res) {
             var data = res.data.body.query.results.quote,
