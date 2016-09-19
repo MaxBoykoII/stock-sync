@@ -1,6 +1,6 @@
 {
   "name": "stock-sync",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Solution to freeCodeCamp's Chart the Stock Market Challenge",
   "main": "server.js",
   "repository": "https://github.com/MaxBoykoII/stock-sync",
