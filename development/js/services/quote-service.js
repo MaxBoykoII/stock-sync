@@ -14,9 +14,7 @@ angular.module('StockSync')
             year_ago = new Date(+now - 365 * 24 * 3600 * 1000/2),
             startDate = year_ago.yyyymmdd()||"2009-09-11",
             endDate = yesterday.yyyymmdd() || "2010-03-10";
-        console.log(now);
-        console.log(year_ago.yyyymmdd());
-        console.log(yesterday.yyyymmdd());
+       
 
         //[1] Helper functions for managing tracked symbols;
         this.showSymbols = function() {

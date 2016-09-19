@@ -9,7 +9,7 @@ ctrlStocks.getStocks = function(req, res) {
     var query = req.query.symbols,
         yql_str = encodeURI(baseUrl1 + query),
         yql_query = yql_str + '&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys';
-    console.log(yql_query);
+  
     request({
         "uri": yql_query,
         "method": "GET"

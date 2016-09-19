@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Solution to freeCodeCamp's Chart the Stock Market Challenge",
   "main": "server.js",
-  "repository": "",
+  "repository": "https://github.com/MaxBoykoII/stock-sync",
   "author": "Max Boyko <maxboykomax@gmail.com>",
   "dependencies": {
     "async": "~0.2.8",
@@ -16,10 +16,17 @@
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0"
+    "babel-core": "^6.14.0",
+    "babel-preset-es2015": "^6.9.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-sass": "^2.3.2"
   },
   "babel": {
-    "presets": ["es2015"]
+    "presets": [
+      "es2015"
+    ]
   },
   "scripts": {
     "build": "babel development/js -d client/js -w -s"
