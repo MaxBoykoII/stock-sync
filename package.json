@@ -29,6 +29,7 @@
     ]
   },
   "scripts": {
+    "start": "node server.js",
     "build": "babel development/js -d client/js -w -s"
   }
 }
